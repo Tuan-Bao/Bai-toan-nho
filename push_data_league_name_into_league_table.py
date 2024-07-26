@@ -2,7 +2,7 @@ import csv
 import sqlite3
 import os
 
-# Thư mục chưa cơ sở dữ liệu
+# Thư mục chứa cơ sở dữ liệu
 db_dir = "D:\\Cào dữ liệu\\bài toán nhỏ\\My database"
 db_path = os.path.join(db_dir, "premier_league.db")
 
@@ -10,7 +10,7 @@ db_path = os.path.join(db_dir, "premier_league.db")
 conn = sqlite3.connect(db_path)
 c = conn.cursor()
 
-# Tạo bảng League
+# Tạo bảng league
 c.execute   ("""CREATE TABLE IF NOT EXISTS league (
                 id_league INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT UNIQUE NOT NULL,
@@ -20,17 +20,17 @@ c.execute   ("""CREATE TABLE IF NOT EXISTS league (
 
 # Tạo trigger để tự động cập nhật modified_at
 c.execute   ("""CREATE TRIGGER IF NOT EXISTS update_league_modified_at
-                AFTER UPDATE ON League
+                AFTER UPDATE ON league
                 FOR EACH ROW
                 BEGIN
-                    UPDATE League SET modified_at = CURRENT_TIMESTAMP
+                    UPDATE league SET modified_at = CURRENT_TIMESTAMP
                     WHERE id_league = OLD.id_league;
                 END;""")
 
 # Đường dẫn đến file csv
 csv_path = "D:\\Cào dữ liệu\\bài toán nhỏ\\csv\\Premier League\\league name\\league_name.csv"
 
-# Đọc dữ liệu từ file csv và chèn vào bảng League
+# Đọc dữ liệu từ file csv và chèn vào bảng league
 with open(csv_path, "r") as file:
     csv_reader = csv.reader(file)
     for row in csv_reader:
