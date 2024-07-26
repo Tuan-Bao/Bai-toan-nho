@@ -25,11 +25,11 @@ c.execute   ("""CREATE TRIGGER IF NOT EXISTS update_season_modified_at
                 FOR EACH ROW
                 BEGIN
                     UPDATE season SET modified_at = CURRENT_TIMESTAMP
-                    WHERE id_league = OLD.id_league;
+                    WHERE id_season = OLD.id_season;
                 END;""")
 
 # Đường dẫn đến file csv, thay đổi đường dẫn đổi file csv
-csv_path = "D:\\Cào dữ liệu\\bài toán nhỏ\\csv\\Premier League\\2023.24\\season_2023.24.csv"
+csv_path = "D:\\Cào dữ liệu\\bài toán nhỏ\\csv\\Premier League\\2020.21\\season_2020.21.csv"
 
 # Lấy id_league của Premier League
 c.execute("SELECT id_league FROM league WHERE name = 'Premier League'")
